@@ -18,13 +18,10 @@ typedef struct {
     int nilai;
 } Artefak;
 
+int stralphcmp ();
+
 int main(){
-    int n,i;
-
-    //if (scanf("%d", &n) != 1){
-        //return 1;
-    //}
-
+    int n;
     scanf("%d", &n);
 
     Artefak *data = (Artefak*)malloc(n*sizeof(Artefak));
@@ -32,37 +29,40 @@ int main(){
         return 1;
     }
 
-    for (i=0; i<n; i++){
+    for (int i=0; i<n; i++){
         scanf("%s %s %d %d", data[i].nama, data[i].kategori, &data[i].tahun, &data[i].nilai);
     }
     
-    for (int i = 0; i < n - 1; i++) {
-        for (int j = 0; j < n - i - 1; j++) {
-            int swapig = 0;
+    //bubble sort
+    for (int i = 0; i < n - 1 ; i++) {
+        for (int j = 0; j < n - i - 1 ; j++) {
+            int swapyes = 0;
 
             if (strcmp(data[j].kategori, data[j+1].kategori) > 0){
-                swapig = 1;
-            } 
-            else if (strcmp(data[j].kategori, data[j+1].kategori) == 0){
-                if (data[j].tahun > data[j+1].tahun){
-                    swapig = 1;
-                } 
-                else if (data[j].tahun == data[j+1].tahun){
-                    if (data[j].nilai < data[j+1].nilai){
-                        swapig = 1;
-                    } 
-                    else if (data[j].nilai == data[j+1].nilai){
-                        if (strcmp(data[j].nama, data[j+1].nama) > 0){
-                            swapig = 1;
-                        }    
-                    }
-                }
-            }
-            if (swapig = 1) {
                 Artefak temp = data[j];
                 data[j] = data[j+1];
                 data[j+1] = temp;
-
+            } 
+            else if (strcmp(data[j].kategori, data[j+1].kategori) == 0){
+                if (data[j].tahun > data[j+1].tahun){
+                    Artefak temp = data[j];
+                    data[j] = data[j+1];
+                    data[j+1] = temp;
+                } 
+                else if (data[j].tahun == data[j+1].tahun){
+                    if (data[j].nilai < data[j+1].nilai){
+                        Artefak temp = data[j];
+                        data[j] = data[j+1];
+                        data[j+1] = temp;
+                    } 
+                    else if (data[j].nilai == data[j+1].nilai){
+                        if (strcmp(data[j].nama, data[j+1].nama) > 0){
+                            Artefak temp = data[j];
+                            data[j] = data[j+1];
+                            data[j+1] = temp;
+                        }    
+                    }
+                }
             }
         }
     }
